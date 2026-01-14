@@ -19,18 +19,68 @@
     body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: #333; }
     .container { display: flex; min-height: 100vh; }
 
-    /* Sidebar */
-    nav { width: 260px; background: linear-gradient(180deg, var(--primary), var(--secondary)); color: #fff; padding: 20px; transition: width 0.3s ease; }
-    nav.collapsed { width: 70px; }
+    /* --- SIDEBAR ENHANCEMENTS --- */
+    nav { 
+      width: 260px; 
+      background: linear-gradient(180deg, var(--primary), var(--secondary)); 
+      color: #fff; 
+      padding: 20px; 
+      transition: width 0.3s ease; 
+      overflow: hidden; /* Keeps content from spilling during transition */
+      white-space: nowrap; /* Prevents text wrapping */
+      flex-shrink: 0;
+    }
+
+    /* Collapsed width */
+    nav.collapsed { width: 75px; padding: 20px 10px; }
+
     nav h2 { font-size: 20px; margin-bottom: 20px; }
     nav.collapsed h2 { display: none; }
 
-    nav button { display: block; width: 100%; margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.15); border: none; color: #fff; cursor: pointer; text-align: left; border-radius: 8px; }
+    nav button { 
+      display: flex; /* Changed to flex for icon/text alignment */
+      align-items: center;
+      width: 100%; 
+      margin-bottom: 12px; 
+      padding: 12px; 
+      background: rgba(255,255,255,0.15); 
+      border: none; 
+      color: #fff; 
+      cursor: pointer; 
+      border-radius: 8px; 
+      transition: background 0.2s;
+    }
+
     nav button:hover { background: rgba(255,255,255,0.3); }
 
-    .toggle-btn { background: none; border: 2px solid #fff; color: #fff; padding: 6px 10px; border-radius: 6px; margin-bottom: 20px; cursor: pointer; }
+    /* Styling the icons */
+    nav button .icon {
+      min-width: 30px;
+      font-size: 1.2rem;
+      text-align: center;
+      margin-right: 15px;
+    }
 
-    main { flex: 1; padding: 40px; }
+    /* Hide text when collapsed */
+    nav.collapsed button span { display: none; }
+    
+    /* Center icons when collapsed */
+    nav.collapsed button .icon { margin-right: 0; width: 100%; }
+
+    .toggle-btn { 
+      background: none; 
+      border: 2px solid #fff; 
+      color: #fff; 
+      padding: 6px 10px; 
+      border-radius: 6px; 
+      margin-bottom: 20px; 
+      cursor: pointer; 
+      width: auto !important;
+      display: inline-block;
+    }
+    /* ---------------------------- */
+
+    main { flex: 1; padding: 40px; overflow-y: auto; }
 
     /* Cards & Slides */
     .card { background: var(--card); padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); max-width: 900px; margin: auto; }
@@ -52,10 +102,19 @@
     <nav id="sidebar">
       <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
       <h2>Late Adulthood</h2>
-      <button onclick="showSection('home')">Home</button>
-      <button onclick="showSection('lifestyle')">Lifestyle</button>
-      <button onclick="showSection('mental')">Mental Health</button>
-      <button onclick="showSection('adaptation')">Adaptations</button>
+      
+      <button onclick="showSection('home')">
+        <div class="icon">🏠</div> <span>Home</span>
+      </button>
+      <button onclick="showSection('lifestyle')">
+        <div class="icon">🍎</div> <span>Lifestyle</span>
+      </button>
+      <button onclick="showSection('mental')">
+        <div class="icon">🧠</div> <span>Mental Health</span>
+      </button>
+      <button onclick="showSection('adaptation')">
+        <div class="icon">🛠️</div> <span>Adaptations</span>
+      </button>
     </nav>
 
     <main>
@@ -76,40 +135,37 @@
       <section id="lifestyle"><div class="card" id="lifestyle-slide"></div></section>
       <section id="mental"><div class="card" id="mental-slide"></div></section>
       <section id="adaptation"><div class="card" id="adapt-slide"></div></section>
-
-      <!-- <footer class="card">
-        <h3>References (APA)</h3>
-        <p>World Health Organization. (2023). <em>Mental health of older adults</em>.</p>
-        <p>Erikson, E. H. (1982). <em>The life cycle completed</em>. W. W. Norton.</p>
-        <p>National Institute on Aging. (2022). <em>Cognitive health and aging</em>.</p>
-      </footer> -->
     </main>
   </div>
 
   <script>
-    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
+    function toggleSidebar() { 
+      document.getElementById('sidebar').classList.toggle('collapsed'); 
+    }
+
     function showSection(id) {
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
 
+    // Slide Content Logic
     const lifestyleSlides = [
-      { title: 'Physical & Mental Activity', content: 'Activity levels vary widely in late adulthood. Some experience reduced fitness, while many active seniors and “superagers” engage in walking, yoga, puzzles, learning new skills, and hobbies that support brain health. Mental stimulation protects against memory decline, while stress and depression accelerate cognitive loss.' },
-      { title: 'Social & Emotional Well-being', content: 'Strong social connections with family, friends, faith groups, and volunteer organizations provide emotional support and purpose. Resilience and a positive mindset toward aging are associated with better health outcomes.' },
-      { title: 'Health & Habits', content: 'Healthy aging is supported by heart-friendly diets rich in fruits, vegetables, and lean proteins. Avoidance of smoking and excessive alcohol reduces health risks. Managing chronic illnesses such as diabetes and hypertension is essential.' },
-      { title: 'Influencing Factors', content: 'Socioeconomic status affects access to healthcare and healthy environments. Support systems are vital. While many older adults remain independent, assistance needs increase significantly after age 85.' }
+      { title: 'Physical & Mental Activity', content: 'Activity levels vary widely in late adulthood. Some experience reduced fitness, while many active seniors and “superagers” engage in walking, yoga, puzzles, learning new skills, and hobbies that support brain health.' },
+      { title: 'Social & Emotional Well-being', content: 'Strong social connections with family, friends, faith groups, and volunteer organizations provide emotional support and purpose.' },
+      { title: 'Health & Habits', content: 'Healthy aging is supported by heart-friendly diets rich in fruits, vegetables, and lean proteins.' },
+      { title: 'Influencing Factors', content: 'Socioeconomic status affects access to healthcare and healthy environments. Support systems are vital.' }
     ];
 
     const mentalSlides = [
-      { title: 'Depression', content: 'Depression in late adulthood is linked to bereavement, isolation, chronic illness, and reduced independence. Biological changes and social losses increase vulnerability.' },
-      { title: 'Dementia', content: 'Dementia results from neurodegenerative changes affecting memory and reasoning. Age is the strongest risk factor, with Alzheimer’s disease being the most common type.' },
-      { title: 'Anxiety Disorders', content: 'Anxiety often stems from health uncertainty, fear of dependency, financial stress, and awareness of mortality.' },
-      { title: 'Delirium', content: 'Delirium is an acute, reversible condition triggered by infections, medications, or surgery, occurring more frequently in older adults.' }
+      { title: 'Depression', content: 'Depression in late adulthood is linked to bereavement, isolation, chronic illness, and reduced independence.' },
+      { title: 'Dementia', content: 'Dementia results from neurodegenerative changes affecting memory and reasoning. Age is the strongest risk factor.' },
+      { title: 'Anxiety Disorders', content: 'Anxiety often stems from health uncertainty, fear of dependency, and financial stress.' },
+      { title: 'Delirium', content: 'Delirium is an acute, reversible condition triggered by infections or medications.' }
     ];
 
     const adaptSlides = [
-      { title: 'Life Review Therapy', content: 'Structured reflection helps older adults process losses, reinforce identity, and find meaning, reducing depressive symptoms.' },
-      { title: 'Environmental Cueing', content: 'Using labels, visual cues, and familiar layouts supports memory and independence for dementia patients.' },
+      { title: 'Life Review Therapy', content: 'Structured reflection helps older adults process losses, reinforce identity, and find meaning.' },
+      { title: 'Environmental Cueing', content: 'Using labels, visual cues, and familiar layouts supports memory and independence.' },
       { title: 'Predictive Planning', content: 'Clear routines and planning discussions reduce uncertainty and anxiety.' },
       { title: 'Sensory Stabilization', content: 'Maintaining lighting, noise control, and orientation cues reduces delirium risk.' }
     ];
@@ -117,11 +173,21 @@
     function slideSystem(slides, containerId) {
       let index = 0;
       const container = document.getElementById(containerId);
+      
       function render() {
-        container.innerHTML = `<h1>${slides[index].title}</h1><p>${slides[index].content}</p><div class='slide-nav'><button onclick='prev()'>Previous</button><button onclick='next()'>Next</button></div>`;
+        container.innerHTML = `
+          <h1>${slides[index].title}</h1>
+          <p>${slides[index].content}</p>
+          <div class='slide-nav'>
+            <button class="prev-btn">Previous</button>
+            <button class="next-btn">Next</button>
+          </div>
+        `;
+
+        // Adding listeners inside to avoid global window scope conflicts
+        container.querySelector('.prev-btn').onclick = () => { index = Math.max(0, index - 1); render(); };
+        container.querySelector('.next-btn').onclick = () => { index = Math.min(slides.length - 1, index + 1); render(); };
       }
-      window.prev = () => { index = Math.max(0, index-1); render(); };
-      window.next = () => { index = Math.min(slides.length-1, index+1); render(); };
       render();
     }
 
