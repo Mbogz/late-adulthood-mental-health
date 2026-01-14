@@ -120,6 +120,10 @@
     p, li { font-size: 0.95rem; line-height: 1.5; color: #555; }
     ul { padding-left: 20px; margin-top: 5px; }
 
+    /* Style for the APA list */
+    .reference-list { list-style: none; padding-left: 0; }
+    .reference-list li { text-indent: -30px; padding-left: 30px; margin-bottom: 15px; }
+
     @media (max-width: 768px) {
       .container { flex-direction: column; }
       nav { width: 100% !important; height: 70px; position: fixed; bottom: 0; flex-direction: row; padding: 5px; }
@@ -157,6 +161,9 @@
         <button class="menu-item" onclick="showSection('conclusion', this)">
           <div class="icon">🏁</div> <span>Conclusion</span>
         </button>
+        <button class="menu-item" onclick="showSection('references', this)">
+          <div class="icon">📚</div> <span>References</span>
+        </button>
       </div>
     </nav>
 
@@ -180,17 +187,19 @@
         <section id="lifestyle-content" style="display:none;"></section>
         <section id="mental-content" style="display:none;"></section>
         <section id="adaptation-content" style="display:none;"></section>
+        <section id="conclusion-content" style="display:none;"></section>
+        <section id="references-content" style="display:none;"></section>
       </div>
     </main>
   </div>
 
   <script>
     let currentCat = 'home';
-    let indices = { lifestyle: 0, mental: 0, adaptation: 0 };
+    let indices = { lifestyle: 0, mental: 0, adaptation: 0, conclusion: 0, references: 0 };
     
     const data = {
       lifestyle: [
-        { title: "Lifestyle Characteristics", text: "The elderly/late adulthood often refers to being around the age of 65 and beyond. What constitutes \"old age\" differs across different cultures and history. In modern times, it is often associated with retirement- which is majorly 65. While in older cultures, it may be defined by the loss of physical strength or the ability to perform certain tasks. Biblically, people lived for more than 100 years. The elderly have the following characteristics:" },
+        { title: "Lifestyle Characteristics", text: "The elderly/late adulthood often refers to being around the age of 65 and beyond. What constitutes \"old age\" differs across different cultures and history. In modern times, it is often associated with retirement- which is majorly 65. While in older cultures, it may be defined by the loss of physical strength or the ability to perform certain tasks (American Psychological Association [APA], 2020). Biblically, people lived for more than 100 years. The elderly have the following characteristics:" },
         { title: "Biological & Health Changes", text: `<ul>
             <li>Slowing Down: A natural decline in physical stamina, sensory acuity (vision, hearing), and reaction time. Managing chronic conditions (arthritis, diabetes, heart disease) becomes a central part of daily life.</li>
             <li>Confronting Mortality: The reality of finite time becomes more palpable, often due to the loss of peers, partners, or personal health scares.</li>
@@ -198,10 +207,10 @@
         { title: "Social & Role Transitions:", text: `<ul>
             <li>Role Exit: Exit from long-held primary roles (worker, full-time parent) can lead to a search for new sources of identity and purpose.</li>
             <li>Changing Social Networks: The social circle often shrinks but can deepen. Family roles shift—they may become grandparents, or recipients of care rather than the care givers.</li>
-            <li>Selective Socializing: The Socioemotional Selectivity Theory posits that with a perception of limited time, the elderly prioritize emotionally meaningful relationships and activities over novel ones or obligatory socializing.</li>
+            <li>Selective Socializing: The Socioemotional Selectivity Theory posits that with a perception of limited time, the elderly prioritize emotionally meaningful relationships and activities over novel ones or obligatory socializing (Carstensen, 1992).</li>
           </ul>` },
         { title: "Cognitive & Emotional Focus:", text: `<ul>
-            <li>Life Review: A natural process of reminiscing, telling stories, and integrating past experiences to make sense of one's life narrative. This is crucial for achieving ego integrity.</li>
+            <li>Life Review: A natural process of reminiscing, telling stories, and integrating past experiences to make sense of one's life narrative. This is crucial for achieving ego integrity (Erikson, 1963).</li>
             <li>Crystallized Intelligence: Accumulated knowledge and experience often remain strong or even improve, while fluid intelligence (processing speed, novel problem-solving) may decline.</li>
             <li>Emotional Regulation: Many studies show a trend toward emotional complexity and stability, with a greater focus on positive emotional experiences and letting go of negativity (the "positivity effect").</li>
           </ul>` },
@@ -221,7 +230,7 @@
       mental: [
         { title: "Mental Health Issues", text: "Given the following lifestyle characteristics, the elderly are bound to go through challenges. Some physical, some physiological, some psychological. Some of the psychological issues include/mental health issues they go through are:" },
         { title: "Late-Life Depression:", text: `<ul>
-            <li> Not just sadness, but often a depletion syndrome dominated by apathy, anhedonia (inability to feel pleasure), and a stark lack of motivation. It frequently presents with physical complaints (aches, insomnia, fatigue) rather than verbalized emotional distress.</li>
+            <li> Not just sadness, but often a depletion syndrome dominated by apathy, anhedonia (inability to feel pleasure), and a stark lack of motivation. It frequently presents with physical complaints (aches, insomnia, fatigue) rather than verbalized emotional distress (APA, 2020).</li>
             <li> The triggers are stage-specific: cumulative loss (of loved ones, roles, independence, health), neurovascular changes (small strokes affecting mood circuits), and chronic pain/illness. Also generational stigma may equate emotional struggles with weakness.</li>
           </ul>` },
         { title: "Complicated Grief & Prolonged Grief Disorder:", text: `<ul>
@@ -234,7 +243,7 @@
           </ul>` },
         { title: "Late-Life Paranoia & Mistrust", text: `<ul>
             <li>Unfounded beliefs that others (caregivers, family, neighbors) are stealing, plotting against, or intending harm. It is often more circumscribed than schizophrenia.</li>
-            <li>Driven by multiple factors: Sensory deficits (hearing loss leads to mishearing), social isolation (which fuels rumination), and memory loss. If you can't remember where you put your wallet, the easiest explanation is "someone stole it."</li>
+            <li>Driven by multiple factors: Sensory deficits (hearing loss leads to mishearing), social isolation (which fuels rumination), and memory loss (APA, 2020). If you can't remember where you put your wallet, the easiest explanation is "someone stole it."</li>
           </ul>` },
         { title: "Pathological Hoarding (Late-Onset)", text: `<ul>
             <li>The compulsive acquisition of and inability to discard items, leading to unsafe, cluttered living conditions.</li>
@@ -264,16 +273,23 @@
             <li>Shifting the goal from getting rid of things to curating a legacy collection. Work with the individual to select items for a "Family History" shelf.</li>
             <li>It bypasses the trauma of "loss" and honors emotional attachment while gently introducing discernment.</li>
           </ul>` }
-      ]
-    };
-
-    conclusion: [
+      ],
+      conclusion: [
+        { title: "Adaptation to Mental Health Issues", text: "The elderly may go through these challenges but they still adapt and cope with them. Here are some of the ways in which they can cope:" },
         { title: "Summary and Final Thoughts", text: `<ul>
             <li>Understanding the unique lifestyle characteristics of late adulthood is crucial for addressing the mental health challenges faced by the elderly.</li>
             <li>By recognizing the specific mental health issues prevalent in this age group, caregivers and healthcare professionals can implement targeted adaptation strategies.</li>
             <li>Empathy, patience, and tailored interventions can significantly enhance the quality of life for older adults, helping them navigate the complexities of aging with dignity and resilience.</li>
           </ul>` }
-    ]
+      ],
+      references: [
+        { title: "References", text: `<ul class="reference-list">
+          <li>American Psychological Association. (2020). <i>Older adults' health and age-related changes</i>. https://www.apa.org/pi/aging/resources/guides/older</li>
+          <li>Carstensen, L. L. (1992). Social and emotional patterns in adulthood: Support for socioemotional selectivity theory. <i>Psychology and Aging, 7</i>(3), 331–338.</li>
+          <li>Erikson, E. H. (1963). <i>Childhood and society</i> (2nd ed.). Norton.</li>
+        </ul>` }
+      ]
+    };
 
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('collapsed');
