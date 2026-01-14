@@ -86,8 +86,8 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
       width: 100%;
       max-width: 800px; 
-      min-height: 450px;
-      position: relative; /* Anchor for internal arrows */
+      min-height: 500px;
+      position: relative; 
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -104,7 +104,7 @@
       height: 45px;
       border-radius: 50%;
       font-size: 1.2rem;
-      color: #ccc; /* Conspicuous color */
+      color: #ccc; 
       cursor: pointer;
       transition: 0.2s;
       display: flex;
@@ -116,10 +116,10 @@
     .next-arrow { right: 10px; }
     .nav-arrow.hidden { visibility: hidden; }
 
-    h1 { font-size: 2.2rem; margin-bottom: 20px; color: var(--primary); }
-    p { font-size: 1.1rem; line-height: 1.6; color: #555; }
+    h1 { font-size: 2rem; margin-bottom: 20px; color: var(--primary); }
+    p, li { font-size: 1.05rem; line-height: 1.6; color: #555; }
+    ul { padding-left: 20px; }
 
-    /* MOBILE DOCK */
     @media (max-width: 768px) {
       .container { flex-direction: column; }
       nav { width: 100% !important; height: 70px; position: fixed; bottom: 0; flex-direction: row; padding: 5px; }
@@ -128,7 +128,7 @@
       nav .menu-item { flex-direction: column; font-size: 10px; padding: 5px; align-items: center; }
       nav .menu-item .icon { margin-right: 0; font-size: 1.4rem; }
       main { padding: 20px; padding-bottom: 90px; }
-      .card { padding: 30px; min-height: 350px; }
+      .card { padding: 30px; min-height: 400px; }
     }
   </style>
 </head>
@@ -164,14 +164,14 @@
 
         <section id="home" class="active">
           <h1>Learning Objectives</h1>
-         <p><strong>After review of this website, the learner will be able to:</strong></p>
-<ul>
-<li>Understand the elderly lifestyle characteristics</li>
-<li>Explain major mental health concerns affecting the elderly.</li>
-<li>Analyze why these mental health issues emerge in late adulthood.</li>
-<li>Match mental health concerns with appropriate adaptation mechanisms.</li>
-<li>Apply age-appropriate support strategies when interacting with older adults.</li>
-</ul>
+          <p><strong>After review of this website, the learner will be able to:</strong></p>
+          <ul>
+            <li>Understand the elderly lifestyle characteristics</li>
+            <li>Explain major mental health concerns affecting the elderly.</li>
+            <li>Analyze why these mental health issues emerge in late adulthood.</li>
+            <li>Match mental health concerns with appropriate adaptation mechanisms.</li>
+            <li>Apply age-appropriate support strategies when interacting with older adults.</li>
+          </ul>
         </section>
 
         <section id="lifestyle-content" style="display:none;"></section>
@@ -188,32 +188,32 @@
     const data = {
       lifestyle: [
         { title: "Lifestyle Characteristics", text: "The elderly/late adulthood often refers to being around the age of 65 and beyond. What constitutes \"old age\" differs across different cultures and history. In modern times, it is often associated with retirement- which is majorly 65. While in older cultures, it may be defined by the loss of physical strength or the ability to perform certain tasks. Biblically, people lived for more than 100 years. They go through the following:" },
-        { title: "Biological & Health Changes", text: <ul>
+        { title: "Biological & Health Changes", text: `<ul>
             <li>Slowing Down: A natural decline in physical stamina, sensory acuity (vision, hearing), and reaction time. Managing chronic conditions (arthritis, diabetes, heart disease) becomes a central part of daily life.</li>
             <li>Confronting Mortality: The reality of finite time becomes more palpable, often due to the loss of peers, partners, or personal health scares.</li>
-          </ul> },
-        { title: "Social & Role Transitions:", text: <ul>
+          </ul>` },
+        { title: "Social & Role Transitions:", text: `<ul>
             <li>Role Exit: Exit from long-held primary roles (worker, full-time parent) can lead to a search for new sources of identity and purpose.</li>
             <li>Changing Social Networks: The social circle often shrinks but can deepen. Family roles shift—they may become grandparents, or recipients of care rather than the care givers.</li>
             <li>Selective Socializing: The Socioemotional Selectivity Theory posits that with a perception of limited time, the elderly prioritize emotionally meaningful relationships and activities over novel ones or obligatory socializing.</li>
-          </ul>}
-          { title: "Cognitive & Emotional Focus:", text: <ul>
+          </ul>` },
+        { title: "Cognitive & Emotional Focus:", text: `<ul>
             <li>Life Review: A natural process of reminiscing, telling stories, and integrating past experiences to make sense of one's life narrative. This is crucial for achieving ego integrity.</li>
             <li>Crystallized Intelligence: Accumulated knowledge and experience often remain strong or even improve, while fluid intelligence (processing speed, novel problem-solving) may decline.</li>
             <li>Emotional Regulation: Many studies show a trend toward emotional complexity and stability, with a greater focus on positive emotional experiences and letting go of negativity (the "positivity effect").</li>
-          </ul>}
-           { title: "Primary Goals of the Elderly:", text: <ul>
+          </ul>` },
+        { title: "Primary Goals of the Elderly:", text: `<ul>
             <li> Maintaining Autonomy & Independence: Although most may need caregivers, they prefer independence of their lifestyle choices.</li>
             <li> Preserving Health & Functionality: Goals focus on maintaining abilities rather than acquiring new ones. This includes physical health, cognitive sharpness ("use it or lose it"), and mobility to support independence.</li>
             <li>Cultivating Meaning & Legacy: Being a grandparent to impact future generations is key in their lives.</li>
             <li>Deepening Relationships & Combating Loneliness: Nurturing close ties with family and friends becomes a primary emotional goal. For many, this includes navigating grief from loss while investing in remaining connections.</li>
-          </ul>}
-           { title: "The elderlies insights:", text: <ul>
+          </ul>` },
+        { title: "The elderlies insights:", text: `<ul>
             <li> Routine-Oriented: Structure provides comfort, predictability, and a sense of control in a world of change. Daily rituals (morning coffee, a daily walk, specific TV programs) become important anchors.</li>
             <li> Selective Investment of Energy: Energy is a more precious resource. Activities are chosen carefully for their emotional payoff, meaning, or necessity. There's less tolerance for drama or obligatory tasks.</li>
             <li>Consumption & Leisure: Focus shifts from acquisition to experiences and comfort. Spending is often on travel (if health permits), hobbies, grandchildren, and services that make life easier. Leisure is less about adrenaline and more about enjoyment, relaxation, and connection.</li>
             <li>Increased Spiritual or Philosophical Reflection: Many turn toward religion, spirituality, or philosophical contemplation to find meaning, cope with loss, and prepare for death.</li>
-          </ul>}
+          </ul>` }
       ],
       mental: [
         { title: "Managing Depression", text: "Identifying social loss and physical health changes is the first step in addressing late-life depression." },
@@ -231,11 +231,8 @@
 
     function showSection(id, btn) {
       currentCat = id;
-      // UI Highlight
       document.querySelectorAll('.menu-item').forEach(b => b.classList.remove('active-link'));
       btn.classList.add('active-link');
-
-      // Section Toggle
       document.querySelectorAll('section').forEach(s => s.style.display = 'none');
       
       if (id === 'home') {
@@ -243,14 +240,16 @@
       } else {
         document.getElementById(id + '-content').style.display = 'block';
       }
-      
       updateUI();
     }
 
     function moveSlide(dir) {
       if (data[currentCat]) {
-        indices[currentCat] += dir;
-        updateUI();
+        const nextIdx = indices[currentCat] + dir;
+        if (nextIdx >= 0 && nextIdx < data[currentCat].length) {
+          indices[currentCat] = nextIdx;
+          updateUI();
+        }
       }
     }
 
@@ -266,11 +265,10 @@
 
       const slides = data[currentCat];
       const idx = indices[currentCat];
-
       const container = document.getElementById(currentCat + '-content');
-      container.innerHTML = `<h1>${slides[idx].title}</h1><p>${slides[idx].text}</p>`;
+      
+      container.innerHTML = `<h1>${slides[idx].title}</h1><div>${slides[idx].text}</div>`;
 
-      // Logic for arrows
       idx === 0 ? prev.classList.add('hidden') : prev.classList.remove('hidden');
       idx === slides.length - 1 ? next.classList.add('hidden') : next.classList.remove('hidden');
     }
