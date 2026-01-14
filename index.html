@@ -117,7 +117,7 @@
     .nav-arrow.hidden { visibility: hidden; }
 
     h1 { font-size: 1.8rem; margin-bottom: 15px; color: var(--primary); }
-    p, li { font-size: 1.02rem; line-height: 1.5; color: #555; }
+    p, li { font-size: 0.95rem; line-height: 1.5; color: #555; }
     ul { padding-left: 20px; margin-top: 5px; }
 
     @media (max-width: 768px) {
@@ -153,6 +153,9 @@
         </button>
         <button class="menu-item" onclick="showSection('adaptation', this)">
           <div class="icon">🛠️</div> <span>Adaptations</span>
+        </button>
+        <button class="menu-item" onclick="showSection('conclusion', this)">
+          <div class="icon">🏁</div> <span>Conclusion</span>
         </button>
       </div>
     </nav>
@@ -225,7 +228,6 @@
             <li> An intense, persistent, and disabling grief reaction that does not improve with time. It differs from normal bereavement by its duration (years) and severity (preoccupation with the deceased, inability to accept the loss, feeling life is meaningless).</li>
             <li> The elderly face high-exposure to loss—partners, siblings, friends die with increasing frequency. Each new loss can reactivate past, unresolved grief. The loss of a spouse after 50+ years can dismantle one's primary identity and social system, making "moving on" feel impossible and disloyal.</li>
           </ul>` },
-          
         { title: "Sundowning & Delirium", text: `<ul>
             <li>Sundowning is a worsening of confusion, agitation, and behavioral problems in the late afternoon/evening. Delirium is a rapid-onset, fluctuating disturbance in attention and awareness, often with hallucinations.</li>
             <li>The aging brain has reduced neuroplasticity and cognitive reserve. A minor UTI, dehydration, new medication, or even a change in environment can precipitate delirium. Sundowning is linked to circadian rhythm disruption, fatigue, and sensory deprivation as daylight fades.</li>
@@ -240,10 +242,38 @@
           </ul>` }
       ],
       adaptation: [
-        { title: "Life Review", text: "Looking back on life accomplishments helps foster a sense of 'Integrity' vs 'Despair'." },
-        { title: "Home Safety", text: "Minor environmental tweaks like grab bars and improved lighting promote continued independence." }
+        { title: "Adaptation to Mental Health Issues", text: "The elderly may go through these challenges but they still adapt and cope with them. Here are some of the ways in which they can cope:" },
+        { title: "Late-Life Depression = Structured Generativity Scheduling", text: `<ul>
+            <li>Instead of vague advice to "stay busy," this involves co-creating a weekly schedule that includes at least one low-demand, high-meaning generative act per day. Examples: Recording a recipe, labeling old photos, knitting for charity.</li>
+            <li>This counteracts apathy by activating Erikson's "Generativity vs. Stagnation" dynamic. The focus is on low energy expenditure but high emotional yield.</li>
+          </ul>` },
+        { title: "Complicated Grief = Legacy Project Integration", text: `<ul>
+            <li>Channeling grief into a concrete project that integrates the deceased's values. Example: Overseeing a perennial planting in a community garden or donating books in their memory.</li>
+            <li>This transforms passive yearning into active love. It helps answer "what now?" by providing purpose derived directly from the relationship.</li>
+          </ul>` },
+        { title: "Sundowning = Anchor Points", text: `<ul>
+            <li>Proactively establishing multisensory "anchor points" like specific scents, calming music at a set time, or a weighted blanket offered at 7 PM.</li>
+            <li>These anchors provide external cognitive scaffolding for a brain that can no longer internally regulate its sense of time and safety.</li>
+          </ul>` },
+        { title: "Late-Life Paranoia = Sensory Augmentation & Verification, not Cntradiction Protocol", text: `<ul>
+            <li>Using sensory aids to pre-empt misinterpretations. Examples: Visible hearing aids, motion-sensor porch lights, and a simple daily log of caregiver actions.</li>
+            <li>When an accusation is made ("My son stole my wallet"), the caregiver is trained to follow a script: 1) Validate the Emotion: "It sounds so upsetting to feel something is missing." 2) Joint Investigation: "That is a worry. Let's solve this mystery together. Where did you last remember seeing it? Let's look there first." 3) Logical, Visual Resolution: Systematically search, and when found, present it visually without accusation: "Oh, here it is! It was under the newspaper."</li>
+            <li>This addresses the root cause—sensory deficit and memory failure—providing objective, external data to a brain that can no longer trust its own perceptions and also  restores a sense of alliance and control.</li>
+          </ul>` },
+        { title: "Pathological Hoarding = Curation, Not Disposal", text: `<ul>
+            <li>Shifting the goal from getting rid of things to curating a legacy collection. Work with the individual to select items for a "Family History" shelf.</li>
+            <li>It bypasses the trauma of "loss" and honors emotional attachment while gently introducing discernment.</li>
+          </ul>` }
       ]
     };
+
+    conclusion: [
+        { title: "Summary and Final Thoughts", text: `<ul>
+            <li>Understanding the unique lifestyle characteristics of late adulthood is crucial for addressing the mental health challenges faced by the elderly.</li>
+            <li>By recognizing the specific mental health issues prevalent in this age group, caregivers and healthcare professionals can implement targeted adaptation strategies.</li>
+            <li>Empathy, patience, and tailored interventions can significantly enhance the quality of life for older adults, helping them navigate the complexities of aging with dignity and resilience.</li>
+          </ul>` }
+    ]
 
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('collapsed');
