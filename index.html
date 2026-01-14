@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Late Adulthood: Mental Health & Lifestyle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #355c7d;
+      --secondary: #6c5b7b;
+      --accent: #f67280;
+      --bg: #f7f9fc;
+      --card: #ffffff;
+    }
+
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: #333; }
+    .container { display: flex; min-height: 100vh; }
+
+    /* Sidebar */
+    nav { width: 260px; background: linear-gradient(180deg, var(--primary), var(--secondary)); color: #fff; padding: 20px; transition: width 0.3s ease; }
+    nav.collapsed { width: 70px; }
+    nav h2 { font-size: 20px; margin-bottom: 20px; }
+    nav.collapsed h2 { display: none; }
+
+    nav button { display: block; width: 100%; margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.15); border: none; color: #fff; cursor: pointer; text-align: left; border-radius: 8px; }
+    nav button:hover { background: rgba(255,255,255,0.3); }
+
+    .toggle-btn { background: none; border: 2px solid #fff; color: #fff; padding: 6px 10px; border-radius: 6px; margin-bottom: 20px; cursor: pointer; }
+
+    main { flex: 1; padding: 40px; }
+
+    /* Cards & Slides */
+    .card { background: var(--card); padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); max-width: 900px; margin: auto; }
+
+    section { display: none; }
+    section.active { display: block; }
+
+    h1 { color: var(--primary); }
+    h3 { color: var(--secondary); }
+
+    .slide-nav { display: flex; justify-content: space-between; margin-top: 30px; }
+    .slide-nav button { padding: 10px 18px; border-radius: 20px; border: none; background: var(--accent); color: #fff; cursor: pointer; }
+
+    footer { margin-top: 50px; font-size: 14px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav id="sidebar">
+      <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+      <h2>Late Adulthood</h2>
+      <button onclick="showSection('home')">Home</button>
+      <button onclick="showSection('lifestyle')">Lifestyle</button>
+      <button onclick="showSection('mental')">Mental Health</button>
+      <button onclick="showSection('adaptation')">Adaptations</button>
+    </nav>
+
+    <main>
+      <section id="home" class="active">
+        <div class="card">
+          <h1>Learning Objectives</h1>
+          <p><strong>After review of this website, the learner will be able to:</strong></p>
+          <ul>
+            <li>Describe key lifestyle characteristics of late adulthood after one review session.</li>
+            <li>Explain major mental health concerns affecting older adults.</li>
+            <li>Analyze why these mental health issues emerge in late adulthood.</li>
+            <li>Match mental health concerns with appropriate adaptation mechanisms.</li>
+            <li>Apply age-appropriate support strategies when interacting with older adults.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="lifestyle"><div class="card" id="lifestyle-slide"></div></section>
+      <section id="mental"><div class="card" id="mental-slide"></div></section>
+      <section id="adaptation"><div class="card" id="adapt-slide"></div></section>
+
+      <!-- <footer class="card">
+        <h3>References (APA)</h3>
+        <p>World Health Organization. (2023). <em>Mental health of older adults</em>.</p>
+        <p>Erikson, E. H. (1982). <em>The life cycle completed</em>. W. W. Norton.</p>
+        <p>National Institute on Aging. (2022). <em>Cognitive health and aging</em>.</p>
+      </footer> -->
+    </main>
+  </div>
+
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    const lifestyleSlides = [
+      { title: 'Physical & Mental Activity', content: 'Activity levels vary widely in late adulthood. Some experience reduced fitness, while many active seniors and “superagers” engage in walking, yoga, puzzles, learning new skills, and hobbies that support brain health. Mental stimulation protects against memory decline, while stress and depression accelerate cognitive loss.' },
+      { title: 'Social & Emotional Well-being', content: 'Strong social connections with family, friends, faith groups, and volunteer organizations provide emotional support and purpose. Resilience and a positive mindset toward aging are associated with better health outcomes.' },
+      { title: 'Health & Habits', content: 'Healthy aging is supported by heart-friendly diets rich in fruits, vegetables, and lean proteins. Avoidance of smoking and excessive alcohol reduces health risks. Managing chronic illnesses such as diabetes and hypertension is essential.' },
+      { title: 'Influencing Factors', content: 'Socioeconomic status affects access to healthcare and healthy environments. Support systems are vital. While many older adults remain independent, assistance needs increase significantly after age 85.' }
+    ];
+
+    const mentalSlides = [
+      { title: 'Depression', content: 'Depression in late adulthood is linked to bereavement, isolation, chronic illness, and reduced independence. Biological changes and social losses increase vulnerability.' },
+      { title: 'Dementia', content: 'Dementia results from neurodegenerative changes affecting memory and reasoning. Age is the strongest risk factor, with Alzheimer’s disease being the most common type.' },
+      { title: 'Anxiety Disorders', content: 'Anxiety often stems from health uncertainty, fear of dependency, financial stress, and awareness of mortality.' },
+      { title: 'Delirium', content: 'Delirium is an acute, reversible condition triggered by infections, medications, or surgery, occurring more frequently in older adults.' }
+    ];
+
+    const adaptSlides = [
+      { title: 'Life Review Therapy', content: 'Structured reflection helps older adults process losses, reinforce identity, and find meaning, reducing depressive symptoms.' },
+      { title: 'Environmental Cueing', content: 'Using labels, visual cues, and familiar layouts supports memory and independence for dementia patients.' },
+      { title: 'Predictive Planning', content: 'Clear routines and planning discussions reduce uncertainty and anxiety.' },
+      { title: 'Sensory Stabilization', content: 'Maintaining lighting, noise control, and orientation cues reduces delirium risk.' }
+    ];
+
+    function slideSystem(slides, containerId) {
+      let index = 0;
+      const container = document.getElementById(containerId);
+      function render() {
+        container.innerHTML = `<h1>${slides[index].title}</h1><p>${slides[index].content}</p><div class='slide-nav'><button onclick='prev()'>Previous</button><button onclick='next()'>Next</button></div>`;
+      }
+      window.prev = () => { index = Math.max(0, index-1); render(); };
+      window.next = () => { index = Math.min(slides.length-1, index+1); render(); };
+      render();
+    }
+
+    slideSystem(lifestyleSlides, 'lifestyle-slide');
+    slideSystem(mentalSlides, 'mental-slide');
+    slideSystem(adaptSlides, 'adapt-slide');
+  </script>
+</body>
+</html>
