@@ -4,196 +4,254 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Late Adulthood: Mental Health & Lifestyle</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #355c7d;
-      --secondary: #6c5b7b;
-      --accent: #f67280;
-      --bg: #f7f9fc;
-      --card: #ffffff;
+      --primary: #2c3e50;
+      --secondary: #4ca1af;
+      --bg: #f4f7f6;
+      --text: #333;
+      --sidebar-width: 260px;
+      --sidebar-collapsed: 75px;
     }
 
-    body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: #333; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
+    
     .container { display: flex; min-height: 100vh; }
 
-    /* --- SIDEBAR ENHANCEMENTS --- */
+    /* --- SIDEBAR --- */
     nav { 
-      width: 260px; 
-      background: linear-gradient(180deg, var(--primary), var(--secondary)); 
+      width: var(--sidebar-width); 
+      background: var(--primary); 
       color: #fff; 
-      padding: 20px; 
+      padding: 20px 15px; 
       transition: width 0.3s ease; 
-      overflow: hidden; /* Keeps content from spilling during transition */
-      white-space: nowrap; /* Prevents text wrapping */
+      display: flex;
+      flex-direction: column;
       flex-shrink: 0;
+      z-index: 100;
     }
+    nav.collapsed { width: var(--sidebar-collapsed); }
 
-    /* Collapsed width */
-    nav.collapsed { width: 75px; padding: 20px 10px; }
-
-    nav h2 { font-size: 20px; margin-bottom: 20px; }
-    nav.collapsed h2 { display: none; }
-
-    nav button { 
-      display: flex; /* Changed to flex for icon/text alignment */
-      align-items: center;
-      width: 100%; 
-      margin-bottom: 12px; 
-      padding: 12px; 
-      background: rgba(255,255,255,0.15); 
-      border: none; 
-      color: #fff; 
-      cursor: pointer; 
-      border-radius: 8px; 
-      transition: background 0.2s;
+    .nav-header { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px;
+      margin-bottom: 30px; 
+      padding: 5px;
     }
-
-    nav button:hover { background: rgba(255,255,255,0.3); }
-
-    /* Styling the icons */
-    nav button .icon {
-      min-width: 30px;
-      font-size: 1.2rem;
-      text-align: center;
-      margin-right: 15px;
-    }
-
-    /* Hide text when collapsed */
-    nav.collapsed button span { display: none; }
     
-    /* Center icons when collapsed */
-    nav.collapsed button .icon { margin-right: 0; width: 100%; }
-
     .toggle-btn { 
       background: none; 
-      border: 2px solid #fff; 
+      border: none; 
       color: #fff; 
-      padding: 6px 10px; 
-      border-radius: 6px; 
-      margin-bottom: 20px; 
-      cursor: pointer; 
-      width: auto !important;
-      display: inline-block;
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
     }
-    /* ---------------------------- */
+    
+    nav h2 { font-size: 18px; margin: 0; white-space: nowrap; transition: opacity 0.2s; font-weight: 600; }
+    nav.collapsed h2 { opacity: 0; pointer-events: none; }
 
-    main { flex: 1; padding: 40px; overflow-y: auto; }
+    nav .menu-item { 
+      display: flex; 
+      align-items: center;
+      width: 100%; 
+      margin-bottom: 8px; 
+      padding: 12px; 
+      background: transparent; 
+      border: none; 
+      color: rgba(255,255,255,0.6); 
+      cursor: pointer; 
+      border-radius: 10px; 
+      transition: 0.3s;
+      white-space: nowrap;
+      text-align: left;
+    }
+    nav .menu-item:hover { color: #fff; background: rgba(255,255,255,0.05); }
+    nav .menu-item.active-link { background: var(--secondary); color: #fff; }
+    nav .menu-item .icon { min-width: 35px; font-size: 1.2rem; }
+    nav.collapsed .menu-item span { display: none; }
 
-    /* Cards & Slides */
-    .card { background: var(--card); padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); max-width: 900px; margin: auto; }
+    /* --- CONTENT AREA --- */
+    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; position: relative; }
 
-    section { display: none; }
-    section.active { display: block; }
+    .card { 
+      background: #fff; 
+      padding: 50px; 
+      border-radius: 20px; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+      width: 100%;
+      max-width: 800px; 
+      min-height: 450px;
+      position: relative; /* Anchor for internal arrows */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-    h1 { color: var(--primary); }
-    h3 { color: var(--secondary); }
+    /* --- SUBTLE INTERNAL ARROWS --- */
+    .nav-arrow { 
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      color: #ccc; /* Conspicuous color */
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-arrow:hover { color: var(--secondary); background: rgba(0,0,0,0.03); }
+    .prev-arrow { left: 10px; }
+    .next-arrow { right: 10px; }
+    .nav-arrow.hidden { visibility: hidden; }
 
-    .slide-nav { display: flex; justify-content: space-between; margin-top: 30px; }
-    .slide-nav button { padding: 10px 18px; border-radius: 20px; border: none; background: var(--accent); color: #fff; cursor: pointer; }
+    h1 { font-size: 2.2rem; margin-bottom: 20px; color: var(--primary); }
+    p { font-size: 1.1rem; line-height: 1.6; color: #555; }
 
-    footer { margin-top: 50px; font-size: 14px; color: #555; }
+    /* MOBILE DOCK */
+    @media (max-width: 768px) {
+      .container { flex-direction: column; }
+      nav { width: 100% !important; height: 70px; position: fixed; bottom: 0; flex-direction: row; padding: 5px; }
+      .nav-header { display: none; }
+      nav .menu-items { display: flex; width: 100%; justify-content: space-around; }
+      nav .menu-item { flex-direction: column; font-size: 10px; padding: 5px; align-items: center; }
+      nav .menu-item .icon { margin-right: 0; font-size: 1.4rem; }
+      main { padding: 20px; padding-bottom: 90px; }
+      .card { padding: 30px; min-height: 350px; }
+    }
   </style>
 </head>
 <body>
+
   <div class="container">
     <nav id="sidebar">
-      <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-      <h2>Late Adulthood</h2>
+      <div class="nav-header">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        <h2>Late Adulthood</h2>
+      </div>
       
-      <button onclick="showSection('home')">
-        <div class="icon">🏠</div> <span>Home</span>
-      </button>
-      <button onclick="showSection('lifestyle')">
-        <div class="icon">🍎</div> <span>Lifestyle</span>
-      </button>
-      <button onclick="showSection('mental')">
-        <div class="icon">🧠</div> <span>Mental Health</span>
-      </button>
-      <button onclick="showSection('adaptation')">
-        <div class="icon">🛠️</div> <span>Adaptations</span>
-      </button>
+      <div class="menu-items">
+        <button class="menu-item active-link" onclick="showSection('home', this)">
+          <div class="icon">🏠</div> <span>Home</span>
+        </button>
+        <button class="menu-item" onclick="showSection('lifestyle', this)">
+          <div class="icon">🍎</div> <span>Lifestyle</span>
+        </button>
+        <button class="menu-item" onclick="showSection('mental', this)">
+          <div class="icon">🧠</div> <span>Mental Health</span>
+        </button>
+        <button class="menu-item" onclick="showSection('adaptation', this)">
+          <div class="icon">🛠️</div> <span>Adaptations</span>
+        </button>
+      </div>
     </nav>
 
     <main>
-      <section id="home" class="active">
-        <div class="card">
-          <h1>Learning Objectives</h1>
-          <p><strong>After review of this website, the learner will be able to:</strong></p>
-          <ul>
-            <li>Describe key lifestyle characteristics of late adulthood after one review session.</li>
-            <li>Explain major mental health concerns affecting older adults.</li>
-            <li>Analyze why these mental health issues emerge in late adulthood.</li>
-            <li>Match mental health concerns with appropriate adaptation mechanisms.</li>
-            <li>Apply age-appropriate support strategies when interacting with older adults.</li>
-          </ul>
-        </div>
-      </section>
+      <div class="card">
+        <button id="prevBtn" class="nav-arrow prev-arrow" onclick="moveSlide(-1)">&#10094;</button>
+        <button id="nextBtn" class="nav-arrow next-arrow" onclick="moveSlide(1)">&#10095;</button>
 
-      <section id="lifestyle"><div class="card" id="lifestyle-slide"></div></section>
-      <section id="mental"><div class="card" id="mental-slide"></div></section>
-      <section id="adaptation"><div class="card" id="adapt-slide"></div></section>
+        <section id="home" class="active">
+          <h1>Learning Objectives</h1>
+         <p><strong>After review of this website, the learner will be able to:</strong></p>
+<ul>
+<li>Understand the elderly lifestyle characteristics</li>
+<li>Explain major mental health concerns affecting the elderly.</li>
+<li>Analyze why these mental health issues emerge in late adulthood.</li>
+<li>Match mental health concerns with appropriate adaptation mechanisms.</li>
+<li>Apply age-appropriate support strategies when interacting with older adults.</li>
+</ul>
+        </section>
+
+        <section id="lifestyle-content" style="display:none;"></section>
+        <section id="mental-content" style="display:none;"></section>
+        <section id="adaptation-content" style="display:none;"></section>
+      </div>
     </main>
   </div>
 
   <script>
-    function toggleSidebar() { 
-      document.getElementById('sidebar').classList.toggle('collapsed'); 
+    let currentCat = 'home';
+    let indices = { lifestyle: 0, mental: 0, adaptation: 0 };
+    
+    const data = {
+      lifestyle: [
+        { title: "Lifestyle Characteristics", text: "The elderly/ late adulthood often refers to being around the age of 65 and beyond. What constitutes "old age" differs across different cultures and history. In Biblical times, old age was above the age of above 100 years. In modern times, old age is often associated with retirement age, which is around 65 years in many countries." },
+        { title: "Social Life", text: "Active community participation is shown to significantly reduce the risk of cognitive decline." },
+        { title: "Nutrition", text: "Focusing on high-fiber, nutrient-dense foods supports cardiovascular and brain health." }
+      ],
+      mental: [
+        { title: "Managing Depression", text: "Identifying social loss and physical health changes is the first step in addressing late-life depression." },
+        { title: "Cognitive Aging", text: "Lifelong learning and brain exercises can foster 'cognitive reserve,' protecting against dementia symptoms." }
+      ],
+      adaptation: [
+        { title: "Life Review", text: "Looking back on life accomplishments helps foster a sense of 'Integrity' vs 'Despair'." },
+        { title: "Home Safety", text: "Minor environmental tweaks like grab bars and improved lighting promote continued independence." }
+      ]
+    };
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('collapsed');
     }
 
-    function showSection(id) {
-      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
+    function showSection(id, btn) {
+      currentCat = id;
+      // UI Highlight
+      document.querySelectorAll('.menu-item').forEach(b => b.classList.remove('active-link'));
+      btn.classList.add('active-link');
 
-    // Slide Content Logic
-    const lifestyleSlides = [
-      { title: 'Physical & Mental Activity', content: 'Activity levels vary widely in late adulthood. Some experience reduced fitness, while many active seniors and “superagers” engage in walking, yoga, puzzles, learning new skills, and hobbies that support brain health.' },
-      { title: 'Social & Emotional Well-being', content: 'Strong social connections with family, friends, faith groups, and volunteer organizations provide emotional support and purpose.' },
-      { title: 'Health & Habits', content: 'Healthy aging is supported by heart-friendly diets rich in fruits, vegetables, and lean proteins.' },
-      { title: 'Influencing Factors', content: 'Socioeconomic status affects access to healthcare and healthy environments. Support systems are vital.' }
-    ];
-
-    const mentalSlides = [
-      { title: 'Depression', content: 'Depression in late adulthood is linked to bereavement, isolation, chronic illness, and reduced independence.' },
-      { title: 'Dementia', content: 'Dementia results from neurodegenerative changes affecting memory and reasoning. Age is the strongest risk factor.' },
-      { title: 'Anxiety Disorders', content: 'Anxiety often stems from health uncertainty, fear of dependency, and financial stress.' },
-      { title: 'Delirium', content: 'Delirium is an acute, reversible condition triggered by infections or medications.' }
-    ];
-
-    const adaptSlides = [
-      { title: 'Life Review Therapy', content: 'Structured reflection helps older adults process losses, reinforce identity, and find meaning.' },
-      { title: 'Environmental Cueing', content: 'Using labels, visual cues, and familiar layouts supports memory and independence.' },
-      { title: 'Predictive Planning', content: 'Clear routines and planning discussions reduce uncertainty and anxiety.' },
-      { title: 'Sensory Stabilization', content: 'Maintaining lighting, noise control, and orientation cues reduces delirium risk.' }
-    ];
-
-    function slideSystem(slides, containerId) {
-      let index = 0;
-      const container = document.getElementById(containerId);
+      // Section Toggle
+      document.querySelectorAll('section').forEach(s => s.style.display = 'none');
       
-      function render() {
-        container.innerHTML = `
-          <h1>${slides[index].title}</h1>
-          <p>${slides[index].content}</p>
-          <div class='slide-nav'>
-            <button class="prev-btn">Previous</button>
-            <button class="next-btn">Next</button>
-          </div>
-        `;
-
-        // Adding listeners inside to avoid global window scope conflicts
-        container.querySelector('.prev-btn').onclick = () => { index = Math.max(0, index - 1); render(); };
-        container.querySelector('.next-btn').onclick = () => { index = Math.min(slides.length - 1, index + 1); render(); };
+      if (id === 'home') {
+        document.getElementById('home').style.display = 'block';
+      } else {
+        document.getElementById(id + '-content').style.display = 'block';
       }
-      render();
+      
+      updateUI();
     }
 
-    slideSystem(lifestyleSlides, 'lifestyle-slide');
-    slideSystem(mentalSlides, 'mental-slide');
-    slideSystem(adaptSlides, 'adapt-slide');
+    function moveSlide(dir) {
+      if (data[currentCat]) {
+        indices[currentCat] += dir;
+        updateUI();
+      }
+    }
+
+    function updateUI() {
+      const prev = document.getElementById('prevBtn');
+      const next = document.getElementById('nextBtn');
+      
+      if (currentCat === 'home') {
+        prev.classList.add('hidden');
+        next.classList.add('hidden');
+        return;
+      }
+
+      const slides = data[currentCat];
+      const idx = indices[currentCat];
+
+      const container = document.getElementById(currentCat + '-content');
+      container.innerHTML = `<h1>${slides[idx].title}</h1><p>${slides[idx].text}</p>`;
+
+      // Logic for arrows
+      idx === 0 ? prev.classList.add('hidden') : prev.classList.remove('hidden');
+      idx === slides.length - 1 ? next.classList.add('hidden') : next.classList.remove('hidden');
+    }
+
+    updateUI();
   </script>
 </body>
 </html>
